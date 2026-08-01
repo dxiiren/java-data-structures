@@ -1,0 +1,162 @@
+import java.util.Scanner;
+import java.util.ArrayList;
+
+public class Proto6
+{
+    public static void main(String [] args)
+    {
+		//Scanner
+		Scanner sc = new Scanner(System.in);
+
+		//input|
+
+		ArrayList <Job> input = new ArrayList <Job> ();
+ 		char ch = 'A';
+		String answer;
+
+		do{
+			char name = ch++;
+
+			System.out.println( "Job "+ (name) + ") ");
+
+			System.out.print("Enter cpu time = ");
+			int cpu = Integer.parseInt(sc.nextLine());
+
+			System.out.print("Enter arrival time = ");
+			int arr = Integer.parseInt(sc.nextLine());
+
+			System.out.println("\nWant to add more? - (yes/no)");
+			answer = sc.nextLine();
+
+			Job abc  = new Job(name,cpu,arr);
+			input.add(abc);
+
+			System.out.println();
+
+		} while(answer.equalsIgnoreCase("Yes"));
+
+		int clock    =1;
+		int stopper  =0;
+		int complete =1;
+		int count = 1;
+		int trigger =0;
+
+		ArrayList <Job> queue = new ArrayList <Job> ();
+		int cpu=0 ;
+		char name='a';
+
+		//check arrival time and put into queue
+		for(int i=0 ; i<input.size() ; i++)
+		{
+			Job klm = input.get(i);
+			if(klm.getArrivalTime() == clock)
+			{
+				queue.add(klm);
+				//sort(queue)
+			}
+		}//end of for
+
+		while(! input.isEmpty() )
+		{
+			while(stopper != 1)
+			{
+
+				//processing
+				if(complete==1)
+				{
+					Job xyz = queue.get(0);
+					cpu = xyz.getCpuTime();
+					name = xyz.getName();
+
+					queue.remove(0);
+					complete=0;
+				}
+
+				if(cpu==0)
+					complete=1;
+				else
+					System.out.println("\nTime : " + clock);
+
+				if(cpu!=0)
+				{
+					System.out.println("Job " + name + " is executing ...");
+					cpu--;
+					trigger=1;
+
+                    //waiting in queue
+					if(! queue.isEmpty())
+					{
+						for(int a=0 ; a<queue.size() ; a++)
+						{
+							Job mln = queue.get(a);
+							int wait = mln.getWaitingTime() + 1;
+							mln.setWaitingTime(wait);
+
+							System.out.println("Job " + mln.getName() + " is in hold for " + mln.getWaitingTime() + " ms");
+
+						}
+					}
+
+					//check arrival time and put into queue
+					for(int i=0 ; i<input.size() ; i++)
+					{
+						if(clock>1)
+						{
+							Job klm = input.get(i);
+							if(klm.getArrivalTime() == clock)
+							{
+								klm.setWaitingTime(1);
+								queue.add(klm);
+								System.out.println("Job " + klm.getName() + " has arrived... ");
+								//sort(queue)
+								insertionSort(queue);
+							}
+						}
+					}//end of for
+
+					//trigger clock
+					if(trigger==1)
+					{
+						clock++;
+						trigger=0;
+					}
+
+				}//end if
+
+
+				stopper=1;
+			}//while stopper
+
+			if(complete==1)
+			{
+					input.remove(0);
+					System.out.println("SIZE =" + input.size());
+			}
+
+			stopper=0;
+		}
+			System.out.println("\nTime : " + clock);
+			System.out.println("End\n\n");
+
+    }//main
+
+	//Insertion sort
+	public static void insertionSort(ArrayList <Job> arr)
+	{
+		for(int y=1 ; y<arr.size() ; y++)   //start dgn 1 sebab kita assume element dlm index 0 betul dah tu
+ 		{
+			Job key = arr.get(y);
+			int z = y;		             //to make it start with index 0
+
+			while(z>0 && arr.get(z-1).getCpuTime()>key.getCpuTime()) 	     //compare index awal dengan index selepas
+			{
+				arr.set( z,arr.get(z-1)) ; 		 //tukar no yang besar letak depan
+				z--; 							 									//out of loop z=-1
+			}
+
+			arr.set(z,key)   ;   		     // z=-1+1 =0 -> ganti no belakang balik dengan no mula2 tadi
+
+		}//end of for
+	}//end of insertion sort
+
+}
