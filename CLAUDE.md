@@ -5,13 +5,14 @@
 
 ## Project: Java Data Structures
 
-A collection of 17 plain-Java console programs from CSC248 (Data Structures, UiTM, ~2021)
-coursework: hand-rolled generic linked list / stack / queue ADTs, five progressive
-sorting-and-searching programs (bubble sort, insertion sort, binary search over ints,
-strings, and objects, ascending and descending), and four progressively refined
-shortest-job-first CPU-scheduling prototypes (Proto5–Proto8) that led to a finished
-linked-list-based SJF scheduler which formerly lived in a standalone repo (since retired);
-these prototypes are its documented ancestors — the lineage is preserved here. As-is.
+A collection of 18 plain-Java console programs from CSC248 (Data Structures, UiTM, ~2021)
+coursework: hand-rolled generic linked list / stack / queue ADTs (plus an `AdtsDemo`
+driver added in 2026), five progressive sorting-and-searching programs (bubble sort,
+insertion sort, binary search over ints, strings, and objects, ascending and descending),
+and four progressively refined shortest-job-first CPU-scheduling prototypes (Proto5–Proto8)
+that led to a finished linked-list-based SJF scheduler which formerly lived in a standalone
+repo (since retired); these prototypes are its documented ancestors — the lineage is
+preserved here. As-is.
 
 - **Repo:** GitHub — `github.com/dxiiren/java-data-structures`
 - **Runs locally only** — no CI/CD, no deployment target, no server. `just run <name>`
@@ -22,8 +23,8 @@ these prototypes are its documented ancestors — the lineage is preserved here.
 | Layer | Technology | Key details |
 | --- | --- | --- |
 | Language | Java (JDK 11+; Temurin 21 via setup) | Plain `javac`/`java`, no build tool, no dependencies |
-| Entry points | 11 classes with `main()` | `just list` enumerates them; all in the default package |
-| ADTs | `LinkedList`, `Node`, `Stack`, `Queue` | Generic `Object`-payload list; `Stack`/`Queue` extend it; no driver program |
+| Entry points | 12 classes with `main()` | `just list` enumerates them; all in the default package |
+| ADTs | `LinkedList`, `Node`, `Stack`, `Queue` + `AdtsDemo` | Generic `Object`-payload list; `Stack`/`Queue` extend it; `AdtsDemo` drives all four (search/deleteNode use `.equals()` since 2026) |
 | Exercises | `SortingAndSearchingV1–V5`, `ProgramApp` | Bubble/insertion sort + binary search over int/String/`Student` arrays |
 | Prototypes | `Proto5–Proto8` + `Job` | `ArrayList<Job>` SJF schedulers, each adding features (sort, wait times, averages) |
 | Task runner | `just` | collection recipes: `list`, `build <name>`, `build-all`, `run <name>` |
@@ -32,13 +33,13 @@ these prototypes are its documented ancestors — the lineage is preserved here.
 
 ```
 java-data-structures/
-  adts/                    # generic linked list ADT family (no main): LinkedList, Node, Stack, Queue
+  adts/                    # generic linked list ADT family: LinkedList, Node, Stack, Queue + AdtsDemo (driver, no stdin)
   sorting-searching/       # ProgramApp + SortingAndSearchingV1–V5 + Student (data class)
   scheduling-prototypes/   # Proto5–Proto8 SJF scheduler prototypes + Job (data class)
   misc/                    # ForEachExample1 (tiny for-each demo)
   sample-inputs/           # <ProgramName>.txt canned stdin, one per stdin-reading program
-  tests/                   # golden-output harness — run-tests.ps1 + expected/ (11 goldens);
-                           # `just test` must stay 11/11 PASS
+  tests/                   # golden-output harness — run-tests.ps1 + expected/ (12 goldens);
+                           # `just test` must stay 12/12 PASS
   out/                     # compiled classes (git-ignored)
   .docs/                   # numbered documentation set
   .claude/                 # skills, hooks, settings
@@ -78,10 +79,11 @@ java-data-structures/
 - Proto5–8 input contract: per job `cpu time`, `arrival time`, then `yes`/`no` (add more).
   The first job must arrive at time 1 and arrivals must keep the CPU busy — an idle gap
   crashes with `IndexOutOfBoundsException` (`queue.get(0)` on an empty ready queue).
-- The ADTs in `adts/` compare `Object` payloads with `==`/`!=` (`search`, `deleteNode`) —
-  correct only for interned strings / cached Integer values; preserved coursework behavior.
-- `adts/` has no runnable program — `just build LinkedList` compiles the family; there is
-  deliberately no driver class.
+- `LinkedList.search`/`deleteNode` used to compare `Object` payloads with `==`/`!=`
+  (reference identity) — silently wrong for non-interned Strings / uncached Integers.
+  **Fixed in 2026**: both now use `java.util.Objects.equals(...)`. Don't revert to `==`/`!=`.
+- `adts/AdtsDemo` (added 2026, no stdin) drives `LinkedList`/`Stack`/`Queue` end to end —
+  goldened as `AdtsDemo` in `tests\expected\`.
 - The apps write no files at runtime — the only generated artifact is the git-ignored `out\`.
 - Job.java and Node.java here are earlier generic/variant versions of the same-named classes
   in the finished SJF scheduler (formerly a standalone repo, since retired) — kept because

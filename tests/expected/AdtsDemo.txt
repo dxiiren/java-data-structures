@@ -1,0 +1,65 @@
+
+=== LinkedList Demo (String data) ===
+Initial list: fig->apple->banana->cherry->date->elderberry->
+getFirst(): fig
+getLast(): elderberry
+search(present, mid-list "cherry", non-identical object)
+After search("cherry"): fig->apple->banana->cherry->cherry->date->elderberry->
+deleteNode(middle element "cherry", non-identical object)
+Data has been removed
+After deleteNode("cherry"): fig->apple->banana->cherry->date->elderberry->
+removeFromBack() returned: elderberry
+After removeFromBack(): fig->apple->banana->cherry->date->
+deleteNode(head element "fig", non-identical object)
+Data has been removed
+After deleteNode("fig"): apple->banana->cherry->date->
+deleteNode(tail element "date", non-identical object)
+Data has been removed
+After deleteNode("date"): apple->banana->cherry->
+search(absent "mango", non-identical object)
+After search("mango"): apple->banana->cherry->mango->
+deleteNode(absent "kiwi", non-identical object)
+No data removed
+After deleteNode("kiwi"): apple->banana->cherry->mango->
+
+=== LinkedList Demo (Integer data > 127) ===
+Initial list: 200->300->400->500->
+search(present, mid-list 300, non-identical Integer)
+After search(300): 200->300->300->400->500->
+deleteNode(middle element 300, non-identical Integer)
+Data has been removed
+After deleteNode(300): 200->300->400->500->
+removeFromBack() returned: 500
+After removeFromBack(): 200->300->400->
+deleteNode(head element 200, non-identical Integer)
+Data has been removed
+After deleteNode(200): 300->400->
+deleteNode(tail element 400, non-identical Integer)
+Data has been removed
+After deleteNode(400): 300->
+search(absent 999, non-identical Integer)
+After search(999): 300->999->
+deleteNode(absent 111, non-identical Integer)
+No data removed
+After deleteNode(111): 300->999->
+
+=== Stack Demo ===
+peek(): 30
+pop(): 30
+pop(): 20
+peek(): 10
+pop(): 10
+peek() on empty stack: null
+Thelistis empty
+pop() on empty stack threw EmptyListException, as expected
+
+=== Queue Demo ===
+getFront(): x
+getEnd(): z
+dequeue(): x
+dequeue(): y
+getFront(): z
+dequeue(): z
+getFront() on empty queue: null
+Thelistis empty
+dequeue() on empty queue threw EmptyListException, as expected

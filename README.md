@@ -1,9 +1,10 @@
 # Java Data Structures
 
-A collection of 17 plain-Java console programs from **CSC248 — Data Structures (UiTM,
-semester 3, ~2021)** coursework: hand-rolled linked list / stack / queue ADTs, five
-progressive sorting-and-searching programs, and four progressively refined
-shortest-job-first CPU-scheduling prototypes. Preserved as written for the course.
+A collection of 18 plain-Java console programs from **CSC248 — Data Structures (UiTM,
+semester 3, ~2021)** coursework: hand-rolled linked list / stack / queue ADTs (plus an
+`AdtsDemo` driver added in 2026), five progressive sorting-and-searching programs, and
+four progressively refined shortest-job-first CPU-scheduling prototypes. Preserved as
+written for the course, apart from the deliberate 2026 fixes noted below.
 
 > **New developer? Start with [`.docs/tldr.md`](.docs/tldr.md)** — every doc summarised on one
 > page. The full guide lives in [`.docs/`](.docs/README.md).
@@ -12,9 +13,10 @@ shortest-job-first CPU-scheduling prototypes. Preserved as written for the cours
 
 | Program | Folder | What it does |
 | --- | --- | --- |
-| `LinkedList` (+ `Node`) | `adts/` | Generic singly linked list ADT: insert front/back/after, remove front/back, keyed delete, traversal accessors, `EmptyListException`. No `main` — it is the base class of the two ADTs below. |
+| `LinkedList` (+ `Node`) | `adts/` | Generic singly linked list ADT: insert front/back/after, remove front/back, keyed delete, traversal accessors, `EmptyListException`. No `main` — it is the base class of the two ADTs below. `search`/`deleteNode` compare payloads with `.equals()` (fixed in 2026; used to be `==`/`!=`, see below). |
 | `Stack` | `adts/` | Stack ADT (`push`/`pop`/`peek`) implemented by extending `LinkedList`. |
 | `Queue` | `adts/` | Queue ADT (`enqueue`/`dequeue`/`getFront`/`getEnd`) implemented by extending `LinkedList`. |
+| `AdtsDemo` | `adts/` | Driver added in 2026: exercises `LinkedList`/`Stack`/`Queue` end to end (insert, traverse, search, keyed delete, push/pop/peek, enqueue/dequeue, empty-pop/-dequeue). No stdin. |
 | `ProgramApp` | `sorting-searching/` | Menu-style program: read 10 integers, bubble sort, then binary search for a value. |
 | `SortingAndSearchingV1` | `sorting-searching/` | Bubble + insertion sort and binary search over **int** arrays, ascending. |
 | `SortingAndSearchingV2` | `sorting-searching/` | Same over **String** arrays (case-insensitive), ascending. |
@@ -77,7 +79,7 @@ Run `just` with no arguments to list every recipe. The ones you'll use daily:
 | `just build-all` | Compile every folder; fail on first error; PASS/FAIL summary |
 | `just run <name>` | Build + run one program with `sample-inputs\<name>.txt` as stdin |
 | `just run-interactive <name>` | Build + run one program with your own typed input |
-| `just test` | Golden-output suite: build + run all 11 runnable programs, diff stdout vs `tests\expected\` |
+| `just test` | Golden-output suite: build + run all 12 runnable programs, diff stdout vs `tests\expected\` |
 | `just clean` | Remove compiled classes (`out\`) |
 | `just claudex` | Launch Claude Code (Sonnet, all permissions) |
 
@@ -142,16 +144,28 @@ Average waiting time : 2.0ms
 `just test` runs the golden-output harness (`tests\run-tests.ps1`): for every golden in
 `tests\expected\`, it compiles the program (same-folder dependencies via `-sourcepath`,
 like `just build`), runs it with its committed `sample-inputs\<name>.txt` as stdin — or
-no stdin for `ForEachExample1` — and diffs stdout against the golden (CRLF-normalized).
-A non-zero exit code fails the test even when stdout matches. One `[PASS]`/`[FAIL]` line
-per program, summary at the end, exit 1 on any failure.
+no stdin for `ForEachExample1` and `AdtsDemo` — and diffs stdout against the golden
+(CRLF-normalized). A non-zero exit code fails the test even when stdout matches. One
+`[PASS]`/`[FAIL]` line per program, summary at the end, exit 1 on any failure.
 
-**Coverage: all 11 runnable programs.** The four former exclusions — `ProgramApp` and
+**Coverage: all 12 runnable programs.** The four former exclusions — `ProgramApp` and
 `SortingAndSearchingV1/V2/V4` — joined the suite after their second-`Scanner` defect was
 fixed in 2026: their search methods used to build a second `Scanner(System.in)` that hit
 EOF under redirected stdin; they now reuse main's Scanner, so each has a committed sample
-input and golden. No program is excluded for nondeterminism — nothing here uses
-timestamps or randomness.
+input and golden. `adts/` was the one remaining gap — it had no driver class at all — until
+`AdtsDemo` was added in 2026, along with a `.equals()` fix for the `search`/`deleteNode`
+reference-identity bug it exposed (see below). No program is excluded for nondeterminism —
+nothing here uses timestamps or randomness.
+
+### The `adts/` identity-comparison bug (fixed 2026)
+
+`LinkedList.search`/`deleteNode` used to compare payloads with `==`/`!=` (reference
+identity) instead of `.equals()` (value equality). That silently failed for any String not
+interned to the same object, or any Integer outside the `-128..127` autobox cache — e.g.
+`deleteNode(new String("date"))` reported `"No data removed"` for a `"date"` that really
+was in the list. `AdtsDemo` reproduces this with runtime-built Strings and Integers > 127
+at the head, middle, and tail of the list; both methods now use
+`java.util.Objects.equals(...)` and correctly find/remove the matching node.
 
 ## Troubleshooting
 
@@ -191,12 +205,12 @@ More in [`.docs/06-troubleshooting/common-issues.md`](.docs/06-troubleshooting/c
 
 ```
 java-data-structures/
-  adts/                    # generic linked list ADT family (no main): LinkedList, Node, Stack, Queue
+  adts/                    # generic linked list ADT family: LinkedList, Node, Stack, Queue + AdtsDemo (driver)
   sorting-searching/       # ProgramApp + SortingAndSearchingV1–V5 + Student (data class)
   scheduling-prototypes/   # Proto5–Proto8 SJF scheduler prototypes + Job (data class)
   misc/                    # ForEachExample1 (tiny for-each demo)
   sample-inputs/           # <ProgramName>.txt canned stdin, one per stdin-reading program
-  tests/                   # golden-output harness: run-tests.ps1 + expected/ (11 goldens)
+  tests/                   # golden-output harness: run-tests.ps1 + expected/ (12 goldens)
   out/                     # compiled classes (git-ignored)
   .docs/                   # numbered documentation set
   .claude/                 # skills, hooks, settings

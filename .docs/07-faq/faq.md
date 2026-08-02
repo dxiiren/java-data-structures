@@ -2,15 +2,19 @@
 
 > **TL;DR** — Why the repo looks the way it does: preservation-first coursework, four
 > self-contained folders, and the finished scheduler living in a sibling repo. The
-> second-Scanner defect was fixed in 2026; the remaining quirks stay.
+> second-Scanner defect and the `adts/` `==`-on-Objects bug were both fixed in 2026 (each
+> in its own deliberate change); the remaining quirks (e.g. the idle-gap crash) stay.
 
-## Why aren't the bugs fixed (`==` on Objects, idle-gap crash)?
+## Why aren't all the bugs fixed (idle-gap crash, etc.)?
 
 This is preserved university coursework — the value is the learning progression, not
 production quality. Behavior changes happen only when explicitly asked for, in their own
-commits: the double-Scanner defect (and Proto8's `SIZE =N` debug print) got exactly such
-a deliberate fix in 2026, so all 11 runnable programs are now golden-tested. The remaining
-quirks are documented instead ([common-issues](../06-troubleshooting/common-issues.md)).
+commits. Two have happened so far: the double-Scanner defect (and Proto8's `SIZE =N` debug
+print) in 2026, and — also in 2026 — `LinkedList.search`/`deleteNode`'s `==`/`!=`
+reference-identity comparison, replaced with `Objects.equals(...)` after the new
+`AdtsDemo` driver exposed it silently dropping non-interned String / uncached Integer
+matches. All 12 runnable programs are now golden-tested. The remaining quirks are
+documented instead ([common-issues](../06-troubleshooting/common-issues.md)).
 
 ## Why are there five nearly identical SortingAndSearching programs?
 
@@ -31,11 +35,13 @@ documented ancestors, and the lineage is preserved here: this repo's `Job.java` 
 `Node.java` are its earlier variants, kept because Proto5–8 and the generic ADTs compile
 against them.
 
-## Why does `adts/` have no runnable program?
+## Why did `adts/` have no runnable program?
 
 The archive contained no driver for the ADT family; the classes were the library the course
-exercises built on. Adding a demo `main` would be new code, not preservation. `just build
-LinkedList` proves the family compiles.
+exercises built on. That was the repo's one real coverage gap, closed in 2026 by adding
+`AdtsDemo` — a small, deterministic driver (no stdin, no randomness, no identity-hash
+output) that exercises `LinkedList`/`Stack`/`Queue` end to end and is now golden-tested
+like every other program (`just run AdtsDemo` / `just test`).
 
 ## Why no Maven/Gradle/JUnit?
 

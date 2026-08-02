@@ -58,7 +58,7 @@ and runs it directly.
 
 ## adts/
 
-No runnable program (library classes only) — nothing reads stdin.
+`AdtsDemo` (added 2026) reads nothing — it is fully self-driving, like `ForEachExample1`.
 
 ## Related docs
 

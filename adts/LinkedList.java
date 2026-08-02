@@ -1,3 +1,5 @@
+import java.util.Objects;
+
 public class LinkedList
 {
 //attribute
@@ -61,7 +63,7 @@ public void search(Object data)
 	// Store head node
 	Node traverse = firstNode , prev = null;
 
-	while (traverse != null && traverse.data != data) {
+	while (traverse != null && !Objects.equals(traverse.data, data)) {
 			prev = traverse;
 			traverse = traverse.next;
 	}
@@ -138,7 +140,7 @@ void deleteNode(Object objKey)
 	Node traverse = firstNode , prev = null;
 
 	// If head node itself holds the key to be deleted
-	if (traverse != null && traverse.data == objKey) {
+	if (traverse != null && Objects.equals(traverse.data, objKey)) {
 		firstNode = traverse.next; // Changed head
 		System.out.println("Data has been removed");
 		return;
@@ -146,7 +148,7 @@ void deleteNode(Object objKey)
 
 	// Search for the key to be deleted, keep track of
 	// the previous node as we need to change temp.next
-	while (traverse != null && traverse.data != objKey) {
+	while (traverse != null && !Objects.equals(traverse.data, objKey)) {
 		prev = traverse;
 		traverse = traverse.next;
 	}

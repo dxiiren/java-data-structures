@@ -2,21 +2,24 @@
 
 ## [01-overview/project-overview.md](01-overview/project-overview.md)
 
-17 plain-Java console programs from CSC248 (Data Structures, UiTM, ~2021), imported from
+18 plain-Java console programs from CSC248 (Data Structures, UiTM, ~2021), imported from
 the university archive into four topic folders: generic linked list / stack / queue ADTs,
 five progressive sorting-and-searching programs, four SJF CPU-scheduling prototypes, and a
 for-each demo. One matric number was stripped from a header; everything else is preserved
-as written. The finished SJF scheduler the prototypes led to formerly lived in a standalone
-repo (since retired); these prototypes are its documented ancestors, and this repo's
-`Job`/`Node` are its earlier variants — the lineage is preserved here.
+as written, apart from two deliberate 2026 fixes (the second-Scanner EOF defect, and the
+`adts/` `search`/`deleteNode` identity-comparison bug — see below). The finished SJF
+scheduler the prototypes led to formerly lived in a standalone repo (since retired); these
+prototypes are its documented ancestors, and this repo's `Job`/`Node` are its earlier
+variants — the lineage is preserved here.
 
 ## [01-overview/architecture.md](01-overview/architecture.md)
 
 No build tool — each folder compiles on its own via `javac -sourcepath` into one shared
 `out\` (class names must stay unique repo-wide). The ADT family is an inheritance chain
-(`Stack`/`Queue` extend a generic `Object`-payload `LinkedList`), the V1–V5 set
-re-implements bubble/insertion/binary-search across types and directions, and Proto5→8
-each add one scheduler feature (SJF sort, wait times, averages, clean output).
+(`Stack`/`Queue` extend a generic `Object`-payload `LinkedList`, driven end to end by
+`AdtsDemo`), the V1–V5 set re-implements bubble/insertion/binary-search across types and
+directions, and Proto5→8 each add one scheduler feature (SJF sort, wait times, averages,
+clean output).
 
 ## [02-setup/getting-started.md](02-setup/getting-started.md)
 
@@ -27,7 +30,7 @@ A good Proto8 run ends with average turn-around and waiting times.
 ## [03-development/workflow.md](03-development/workflow.md)
 
 Edit → `just run <name>` → keep `sample-inputs\<name>.txt` and the input-formats doc in
-sync with any Scanner change → `just build-all` + `just test` (11/11 golden diffs) +
+sync with any Scanner change → `just build-all` + `just test` (12/12 golden diffs) +
 `/lint-check` before a PR. Preservation
 first: no modernization, no new tooling, unique class names, Conventional Commits with
 repo-local gmail identity.
@@ -40,7 +43,7 @@ There is no deployment: no CI/CD, no server. Pushing to `main` is the distributi
 ## [05-reference/commands.md](05-reference/commands.md)
 
 The recipe table (`list`, `build <name>`, `build-all`, `run <name>`, `run-interactive
-<name>`, `test` — golden-output suite over all 11 runnable programs, `clean`, `claudex`)
+<name>`, `test` — golden-output suite over all 12 runnable programs, `clean`, `claudex`)
 and why `run` redirects via `cmd /c` instead of a PowerShell pipe (BOM injection crashes
 numeric first reads).
 
@@ -65,6 +68,7 @@ errors, and the shared-`out\` class-name clash.
 
 ## [07-faq/faq.md](07-faq/faq.md)
 
-Which bugs stay unfixed vs which were fixed (the 2026 second-Scanner fix), why five
-near-identical V-versions and four Protos exist (the progression is the point), where the
-finished scheduler lives, and why `adts/` has no main.
+Which bugs stay unfixed vs which were fixed (the 2026 second-Scanner fix and the 2026
+`adts/` identity-comparison fix), why five near-identical V-versions and four Protos exist
+(the progression is the point), where the finished scheduler lives, and why `adts/` used
+to have no `main`.

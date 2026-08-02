@@ -18,7 +18,7 @@ javac -d out -sourcepath <folder> <folder>\<Program>.java
 across folders** — a second `Student` or `Node` anywhere would silently overwrite the
 first's `.class`.
 
-## Family 1 — ADTs (`adts/`, no main)
+## Family 1 — ADTs (`adts/`)
 
 ```
 Node          (Object data + next pointer)
@@ -28,15 +28,22 @@ LinkedList    (firstNode/lastNode/currNode; insertAtFront/Back, insertAfter, sea
    |           nested EmptyListException)
    +-- Stack  (push/pop/peek  -> insertAtFront/removeFromFront/getFirst)
    +-- Queue  (enqueue/dequeue/getFront/getEnd -> insertAtBack/removeFromFront/...)
+
+AdtsDemo      (driver, added 2026; no main-class inheritance, just exercises the three above)
 ```
 
-Design notes (coursework-era, preserved):
+Design notes (coursework-era, preserved unless marked otherwise):
 
 - Payload type is raw `Object`; callers cast on the way out.
-- `search`/`deleteNode` compare payloads with `==`/`!=` — reference identity, correct only
-  for interned strings or cached `Integer` values.
+- `search`/`deleteNode` used to compare payloads with `==`/`!=` — reference identity,
+  correct only for interned strings or cached `Integer` values. **Fixed in 2026**: both
+  now use `java.util.Objects.equals(...)` (value equality, null-safe). `AdtsDemo`
+  deliberately builds Strings/Integers at runtime so they expose exactly this gap.
 - `EmptyListException` prints its message in the constructor and carries none.
-- There is deliberately **no driver class** — the folder is a library the course built on.
+- `adts/` had no driver class until `AdtsDemo` was added in 2026 — it exercises
+  `LinkedList` insert/search/delete/traversal, `Stack` push/pop/peek, and `Queue`
+  enqueue/dequeue, including the empty-pop/empty-dequeue `EmptyListException` paths.
+  Goldened as `AdtsDemo` in `tests\expected\`; takes no stdin.
 
 ## Family 2 — Sorting and searching (`sorting-searching/`)
 

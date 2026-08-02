@@ -21,7 +21,7 @@ Close and reopen PowerShell afterwards so PATH updates land.
 ## 2. First build and run
 
 ```powershell
-just list          # 11 runnable programs
+just list          # 12 runnable programs
 just build-all     # compiles adts, sorting-searching, scheduling-prototypes, misc
 just run Proto8    # SJF scheduler prototype against sample-inputs\Proto8.txt
 just run SortingAndSearchingV3

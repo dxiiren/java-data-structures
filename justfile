@@ -27,7 +27,7 @@ build name: _require-jdk
 
 # Compile every folder; fail on first error; print a PASS/FAIL summary.
 build-all: _require-jdk
-    if (-not (Test-Path out)) { New-Item -ItemType Directory out | Out-Null }; foreach ($dir in 'adts','sorting-searching','scheduling-prototypes','misc') { & javac -d out (Get-ChildItem "$dir\*.java").FullName; if ($LASTEXITCODE -eq 0) { Write-Host "[PASS] $dir" -ForegroundColor Green } else { Write-Host "[FAIL] $dir" -ForegroundColor Red; exit 1 } }; Write-Host "All 4 folders compiled (17 files)." -ForegroundColor Green
+    if (-not (Test-Path out)) { New-Item -ItemType Directory out | Out-Null }; foreach ($dir in 'adts','sorting-searching','scheduling-prototypes','misc') { & javac -d out (Get-ChildItem "$dir\*.java").FullName; if ($LASTEXITCODE -eq 0) { Write-Host "[PASS] $dir" -ForegroundColor Green } else { Write-Host "[FAIL] $dir" -ForegroundColor Red; exit 1 } }; Write-Host "All 4 folders compiled (18 files)." -ForegroundColor Green
 
 # PowerShell's `Get-Content |` pipe prepends a UTF-8 BOM to the first stdin line (crashes
 # apps whose first read is numeric); cmd redirection passes the file bytes through untouched.
@@ -40,10 +40,11 @@ run-interactive name: (build name)
     java -cp out {{name}}
 
 # The harness (tests\run-tests.ps1) rebuilds each covered program, feeds its committed
-# sample input (or no stdin for ForEachExample1), and diffs stdout against tests\expected\
-# — CRLF-normalized, one PASS/FAIL line per program, non-zero exit codes fail, exit 1 on
-# any failure. All 11 runnable programs are covered (the second-Scanner defect that kept
-# ProgramApp and V1/V2/V4 interactive-only was fixed in 2026).
+# sample input (or no stdin for ForEachExample1 and AdtsDemo), and diffs stdout against
+# tests\expected\ — CRLF-normalized, one PASS/FAIL line per program, non-zero exit codes
+# fail, exit 1 on any failure. All 12 runnable programs are covered (the second-Scanner
+# defect that kept ProgramApp and V1/V2/V4 interactive-only was fixed in 2026; adts/ got
+# its AdtsDemo driver + golden in 2026 too).
 # Run the golden-output test suite over every program with a committed expected output.
 test:
     & 'tests\run-tests.ps1'; exit $LASTEXITCODE

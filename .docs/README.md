@@ -1,6 +1,6 @@
 # java-data-structures — documentation
 
-Documentation for the CSC248 data-structures coursework collection: 17 plain-Java console
+Documentation for the CSC248 data-structures coursework collection: 18 plain-Java console
 programs (ADTs, sorting/searching, CPU-scheduling prototypes) with a `just`-based
 build/run harness.
 
@@ -68,4 +68,4 @@ build/run harness.
 
 | Document | What it covers |
 | --- | --- |
-| [faq.md](07-faq/faq.md) | Why bugs stay, why five V-versions, where the finished scheduler lives |
+| [faq.md](07-faq/faq.md) | Which bugs were fixed (2026) vs stay, why five V-versions, where the finished scheduler lives |

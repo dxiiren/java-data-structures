@@ -1,9 +1,10 @@
 # Project overview
 
-> **TL;DR** — 17 plain-Java console programs from CSC248 (Data Structures, UiTM, semester 3,
+> **TL;DR** — 18 plain-Java console programs from CSC248 (Data Structures, UiTM, semester 3,
 > ~2021): generic linked list / stack / queue ADTs, five sorting-and-searching exercises, and
 > four SJF CPU-scheduling prototypes. Imported from the university archive, organized into
-> four topic folders, preserved as written.
+> four topic folders, preserved as written — apart from two deliberate 2026 fixes (see
+> [architecture.md](architecture.md)).
 
 ## What this is
 
@@ -12,7 +13,8 @@ Coursework for **CSC248 — Data Structures** at UiTM, written in the author's t
 course:
 
 1. **Abstract data types** (`adts/`) — a hand-rolled generic singly linked list
-   (`Object` payload), with `Stack` and `Queue` implemented by extending it.
+   (`Object` payload), with `Stack` and `Queue` implemented by extending it, and an
+   `AdtsDemo` driver (added 2026) exercising all three end to end.
 2. **Sorting and searching** (`sorting-searching/`) — the same algorithm set (bubble sort,
    insertion sort, binary search) re-implemented five times: over ints, Strings, and
    `Student` objects, ascending then descending, plus a menu-style `ProgramApp`.
@@ -37,6 +39,9 @@ The archive was flat; the repo groups files by topic:
 | `ForEachExample1.java` | `misc/` |
 | `*.class`, shortcut `.lnk` files | not imported (build artifacts / links) |
 
+`adts/AdtsDemo.java` is not from the archive — it was added in 2026 as the family's first
+driver (see [architecture.md](architecture.md)).
+
 Sanitization: the student matric number was removed from the `ProgramApp.java` header
 (names of the author, group, and lecturer were kept). No other file carried personal data.
 
@@ -59,7 +64,7 @@ preserved in this repo, which keeps the distinct precursors and ADTs:
 | Fact | Value |
 | --- | --- |
 | Language | Java, default package, JDK 11+ (no build tool, no dependencies) |
-| Programs with `main` | 11 (`just list`) |
+| Programs with `main` | 12 (`just list`) |
 | Compilation model | each top-level folder is a self-contained unit; shared `out\` |
 | Input | stdin via `Scanner`; canned inputs in `sample-inputs/` |
 | Output | console only — no files written at runtime |

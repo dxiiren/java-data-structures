@@ -1,6 +1,6 @@
 # Commands
 
-> **TL;DR** — Everything is a `just` recipe. `list` shows the 11 runnable programs,
+> **TL;DR** — Everything is a `just` recipe. `list` shows the 12 runnable programs,
 > `build-all` compiles the four folders, `run <name>` builds one program and feeds it its
 > canned sample input.
 
@@ -9,12 +9,12 @@
 | Recipe | What it does | Notes |
 | --- | --- | --- |
 | `just` | List all recipes | |
-| `just list` | Enumerate runnable programs (classes with `main`) | 11 programs |
+| `just list` | Enumerate runnable programs (classes with `main`) | 12 programs |
 | `just build <name>` | Compile one program into `out\` | `-sourcepath` pulls same-folder deps (`Job`, `Student`, `Node`, `LinkedList`) |
 | `just build-all` | Compile `adts`, `sorting-searching`, `scheduling-prototypes`, `misc` | Fails on first error; `[PASS]`/`[FAIL]` per folder |
 | `just run <name>` | Build + run with `sample-inputs\<name>.txt` as stdin | Falls back to direct (interactive) run when no sample file exists |
 | `just run-interactive <name>` | Build + run with your own typed input | Prompt order in [input-formats.md](input-formats.md) |
-| `just test` | Golden-output suite via `tests\run-tests.ps1` | All 11 runnable programs (Proto5–8, ProgramApp, V1–V5, ForEachExample1); diffs stdout vs `tests\expected\` (CRLF-normalized), non-zero exit codes fail, exit 1 on any fail |
+| `just test` | Golden-output suite via `tests\run-tests.ps1` | All 12 runnable programs (Proto5–8, ProgramApp, V1–V5, ForEachExample1, AdtsDemo); diffs stdout vs `tests\expected\` (CRLF-normalized), non-zero exit codes fail, exit 1 on any fail |
 | `just clean` | Delete `out\` | |
 | `just claudex` / `claudeo` / `claudeh` | Claude Code, all permissions (Sonnet / Opus / Haiku) | |
 
