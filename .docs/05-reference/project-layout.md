@@ -28,10 +28,13 @@ java-data-structures/
   misc/
     ForEachExample1.java     # for-each loop demo (no input)
   sample-inputs/             # <ProgramName>.txt — canned stdin per stdin-reading program
+  tests/                     # golden-output harness (`just test`)
+    run-tests.ps1            #   builds + runs every covered program, diffs stdout + exit code
+    expected/                #   7 goldens named <ProgramName>.txt
   out/                       # compiled .class files (git-ignored)
   .docs/                     # this documentation set
   .claude/                   # skills, hooks, settings, memory
-  justfile                   # list / build / build-all / run / run-interactive / clean
+  justfile                   # list / build / build-all / run / run-interactive / test / clean
   setup.ps1                  # idempotent toolchain bootstrap
   CLAUDE.md                  # AI-assistant project brief
   .mcp.json.stub             # committed MCP config template (real .mcp.json git-ignored)

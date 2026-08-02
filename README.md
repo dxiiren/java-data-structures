@@ -77,6 +77,7 @@ Run `just` with no arguments to list every recipe. The ones you'll use daily:
 | `just build-all` | Compile every folder; fail on first error; PASS/FAIL summary |
 | `just run <name>` | Build + run one program with `sample-inputs\<name>.txt` as stdin |
 | `just run-interactive <name>` | Build + run one program with your own typed input |
+| `just test` | Golden-output suite: build + run the 7 covered programs, diff stdout vs `tests\expected\` |
 | `just clean` | Remove compiled classes (`out\`) |
 | `just claudex` | Launch Claude Code (Sonnet, all permissions) |
 
@@ -139,6 +140,26 @@ Average turn-around time : 4.333333333333333ms
 Average waiting time : 2.0ms
 ```
 
+## Testing
+
+`just test` runs the golden-output harness (`tests\run-tests.ps1`): for every golden in
+`tests\expected\`, it compiles the program (same-folder dependencies via `-sourcepath`,
+like `just build`), runs it with its committed `sample-inputs\<name>.txt` as stdin — or
+no stdin for `ForEachExample1` — and diffs stdout against the golden (CRLF-normalized).
+A non-zero exit code fails the test even when stdout matches. One `[PASS]`/`[FAIL]` line
+per program, summary at the end, exit 1 on any failure. Program source is untouched: the
+goldens pin behavior as-is, coursework quirks included.
+
+**Coverage: 7 of the 11 runnable programs** — `Proto5`–`Proto8`,
+`SortingAndSearchingV3`, `SortingAndSearchingV5`, and `ForEachExample1`.
+
+Excluded: `ProgramApp` and `SortingAndSearchingV1/V2/V4` are **interactive only** — they
+build a second `Scanner(System.in)` inside their search methods, and with redirected
+stdin the first Scanner buffers the whole stream so the second hits EOF
+(`NoSuchElementException`). Their sample inputs are intentionally absent (see
+Troubleshooting below), so they have no goldens. No program is excluded for
+nondeterminism — nothing here uses timestamps or randomness.
+
 ## Troubleshooting
 
 ### `just run Proto5` (or any Proto) dies with `IndexOutOfBoundsException`
@@ -182,6 +203,7 @@ java-data-structures/
   scheduling-prototypes/   # Proto5–Proto8 SJF scheduler prototypes + Job (data class)
   misc/                    # ForEachExample1 (tiny for-each demo)
   sample-inputs/           # <ProgramName>.txt canned stdin, one per stdin-reading program
+  tests/                   # golden-output harness: run-tests.ps1 + expected/ (7 goldens)
   out/                     # compiled classes (git-ignored)
   .docs/                   # numbered documentation set
   .claude/                 # skills, hooks, settings

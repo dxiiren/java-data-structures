@@ -27,7 +27,8 @@ A good Proto8 run ends with average turn-around and waiting times.
 ## [03-development/workflow.md](03-development/workflow.md)
 
 Edit → `just run <name>` → keep `sample-inputs\<name>.txt` and the input-formats doc in
-sync with any Scanner change → `just build-all` + `/lint-check` before a PR. Preservation
+sync with any Scanner change → `just build-all` + `just test` (7/7 golden diffs) +
+`/lint-check` before a PR. Preservation
 first: no modernization, no new tooling, unique class names, Conventional Commits with
 repo-local gmail identity.
 
@@ -39,8 +40,9 @@ There is no deployment: no CI/CD, no server. Pushing to `main` is the distributi
 ## [05-reference/commands.md](05-reference/commands.md)
 
 The recipe table (`list`, `build <name>`, `build-all`, `run <name>`, `run-interactive
-<name>`, `clean`, `claudex`) and why `run` redirects via `cmd /c` instead of a PowerShell
-pipe (BOM injection crashes numeric first reads).
+<name>`, `test` — golden-output suite over the 7 covered programs, `clean`, `claudex`)
+and why `run` redirects via `cmd /c` instead of a PowerShell pipe (BOM injection crashes
+numeric first reads).
 
 ## [05-reference/input-formats.md](05-reference/input-formats.md)
 
@@ -50,9 +52,9 @@ gaps. Four programs (`ProgramApp`, V1, V2, V4) are interactive only — their se
 
 ## [05-reference/project-layout.md](05-reference/project-layout.md)
 
-Annotated tree: four source folders, `sample-inputs\`, git-ignored `out\`, the kit files,
-and the rules the layout encodes (per-folder deps, unique names, which programs have
-samples).
+Annotated tree: four source folders, `sample-inputs\`, `tests\` (golden harness +
+expected outputs), git-ignored `out\`, the kit files, and the rules the layout encodes
+(per-folder deps, unique names, which programs have samples).
 
 ## [06-troubleshooting/common-issues.md](06-troubleshooting/common-issues.md)
 

@@ -37,6 +37,8 @@ java-data-structures/
   scheduling-prototypes/   # Proto5–Proto8 SJF scheduler prototypes + Job (data class)
   misc/                    # ForEachExample1 (tiny for-each demo)
   sample-inputs/           # <ProgramName>.txt canned stdin, one per stdin-reading program
+  tests/                   # golden-output harness — run-tests.ps1 + expected/ (7 goldens);
+                           # `just test` must stay 7/7 PASS
   out/                     # compiled classes (git-ignored)
   .docs/                   # numbered documentation set
   .claude/                 # skills, hooks, settings

@@ -12,7 +12,10 @@
 3. If you changed any `Scanner` read (added, removed, reordered): update
    `sample-inputs\<name>.txt` to match **in the same change**, and update
    [`../05-reference/input-formats.md`](../05-reference/input-formats.md).
-4. Before a PR: `just build-all` (all four folders must PASS) and `/lint-check`.
+4. Before a PR: `just build-all` (all four folders must PASS), `just test` (7/7 golden
+   diffs must PASS — if you intentionally changed a covered program's output, regenerate
+   its `tests\expected\<name>.txt` from a verified run; the failing run's stdout is at
+   `out\<name>.actual.txt`), and `/lint-check`.
 
 ## Ground rules
 
