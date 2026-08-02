@@ -13,6 +13,12 @@ default:
 _require-jdk:
     @if (-not (Get-Command javac -ErrorAction SilentlyContinue)) { Write-Error "JDK (javac) not found on PATH.`n  -> Run setup.ps1 first:  pwsh ./setup.ps1"; exit 1 }
 
+# PowerShell 7 — the test harness compiles the programs in parallel, which the
+# Windows PowerShell 5.1 that runs every other recipe cannot do.
+[private]
+_require-pwsh:
+    @if (-not (Get-Command pwsh -ErrorAction SilentlyContinue)) { Write-Error "pwsh (PowerShell 7+) not found -- the test harness needs it to compile in parallel.`n  -> Run setup.ps1 first:  pwsh ./setup.ps1"; exit 1 }
+
 # ─── Catalog ─────────────────────────────────────────────
 
 # List every runnable program (class with a main method), one per line.
@@ -45,9 +51,23 @@ run-interactive name: (build name)
 # fail, exit 1 on any failure. All 12 runnable programs are covered (the second-Scanner
 # defect that kept ProgramApp and V1/V2/V4 interactive-only was fixed in 2026; adts/ got
 # its AdtsDemo driver + golden in 2026 too).
+#
+# Runs under pwsh, not the powershell.exe every other recipe uses: the harness
+# compiles and runs the programs concurrently via `ForEach-Object -Parallel`,
+# which is PowerShell 7+ only. setup.ps1 installs pwsh (it is what setup itself
+# is invoked with), so this is not a new prerequisite. Each program compiles
+# into its own out\<Name>\ so concurrent builds cannot race over the shared
+# Job.class / Node.class; the flat out\ the build recipes use is untouched.
+# Output is still printed sorted by name, so it reads as it always did.
 # Run the golden-output test suite over every program with a committed expected output.
-test:
-    & 'tests\run-tests.ps1'; exit $LASTEXITCODE
+test: _require-pwsh
+    pwsh -NoProfile -File 'tests\run-tests.ps1'; exit $LASTEXITCODE
+
+# Same suite, one program at a time -- for a clean ordered log when a failure
+# needs reading, or on a machine that only has Windows PowerShell.
+# Run the golden-output test suite serially
+test-serial: _require-pwsh
+    pwsh -NoProfile -File 'tests\run-tests.ps1' -ThrottleLimit 1; exit $LASTEXITCODE
 
 # Remove compiled classes.
 clean:

@@ -14,7 +14,8 @@
 | `just build-all` | Compile `adts`, `sorting-searching`, `scheduling-prototypes`, `misc` | Fails on first error; `[PASS]`/`[FAIL]` per folder |
 | `just run <name>` | Build + run with `sample-inputs\<name>.txt` as stdin | Falls back to direct (interactive) run when no sample file exists |
 | `just run-interactive <name>` | Build + run with your own typed input | Prompt order in [input-formats.md](input-formats.md) |
-| `just test` | Golden-output suite via `tests\run-tests.ps1` | All 12 runnable programs (Proto5–8, ProgramApp, V1–V5, ForEachExample1, AdtsDemo); diffs stdout vs `tests\expected\` (CRLF-normalized), non-zero exit codes fail, exit 1 on any fail |
+| `just test` | Golden-output suite via `tests\run-tests.ps1` | All 12 runnable programs (Proto5–8, ProgramApp, V1–V5, ForEachExample1, AdtsDemo), compiled + run **in parallel** into per-program `out\<Name>\` (~5s); diffs stdout vs `tests\expected\` (CRLF-normalized), non-zero exit codes fail, exit 1 on any fail. Needs `pwsh` |
+| `just test-serial` | Same suite, one program at a time (~21s) | For a clean ordered log when a failure needs reading |
 | `just clean` | Delete `out\` | |
 | `just claudex` / `claudeo` / `claudeh` | Claude Code, all permissions (Sonnet / Opus / Haiku) | |
 

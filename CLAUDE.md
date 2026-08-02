@@ -68,8 +68,10 @@ java-data-structures/
   programs' first read is `Integer.parseInt`, so a BOM crashes them. Don't "simplify" it back
   to a pipe.
 - Each top-level folder is its own compilation unit (same-folder files are the only compile
-  dependencies); everything lands in one shared `out\`, so class names must stay unique
-  across folders.
+  dependencies); `just build`/`build-all` land everything in one shared `out\`, so class
+  names must stay unique across folders. The test harness is the exception — it compiles
+  each program into its own `out\<Name>\` so its parallel workers cannot race over the
+  shared `Job.class`/`Node.class`.
 - `ProgramApp` and `SortingAndSearchingV1/V2/V4` formerly built a second
   `Scanner(System.in)` inside their search methods; with redirected stdin the first
   Scanner buffers the whole stream so the second hit EOF (`NoSuchElementException`).

@@ -14,9 +14,13 @@ javac -d out -sourcepath <folder> <folder>\<Program>.java
 ```
 
 `-sourcepath` pulls in same-folder dependencies automatically (`Job`, `Student`, `Node`,
-`LinkedList`). Everything lands in one shared `out\`, so **class names must stay unique
-across folders** — a second `Student` or `Node` anywhere would silently overwrite the
-first's `.class`.
+`LinkedList`). `just build`/`build-all` land everything in one shared `out\`, so **class
+names must stay unique across folders** — a second `Student` or `Node` anywhere would
+silently overwrite the first's `.class`.
+
+The test harness is the one exception: it compiles each program into its own
+`out\<Name>\`. That is what lets it build and run the programs concurrently — with a
+shared `out\`, `Proto5`..`Proto8` would all race to write the same `out\Job.class`.
 
 ## Family 1 — ADTs (`adts/`)
 

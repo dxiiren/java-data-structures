@@ -148,6 +148,13 @@ no stdin for `ForEachExample1` and `AdtsDemo` — and diffs stdout against the g
 (CRLF-normalized). A non-zero exit code fails the test even when stdout matches. One
 `[PASS]`/`[FAIL]` line per program, summary at the end, exit 1 on any failure.
 
+The programs are compiled and run **concurrently** (`ForEach-Object -Parallel`, which is
+why this one recipe runs under `pwsh`), taking the suite from about 21s to about 5s. To
+make that safe the harness compiles each program into its own `out\<Name>\` rather than
+the shared `out\` the build recipes use — otherwise `Proto5`–`Proto8` would race to write
+the same `out\Job.class`. Results are printed sorted by name, so the output is identical
+to a serial run; use `just test-serial` when a failure needs a clean log.
+
 **Coverage: all 12 runnable programs.** The four former exclusions — `ProgramApp` and
 `SortingAndSearchingV1/V2/V4` — joined the suite after their second-`Scanner` defect was
 fixed in 2026: their search methods used to build a second `Scanner(System.in)` that hit
