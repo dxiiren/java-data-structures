@@ -146,7 +146,6 @@ public class Proto8
 			if(complete==1)
 			{
 					input.remove(0);
-					System.out.println("SIZE =" + input.size());
 			}
 
 			stopper=0;

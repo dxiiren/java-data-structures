@@ -39,7 +39,7 @@ public class ProgramApp
 		System.out.println("\nValues after sorting: " + Arrays.toString(arrNum) + "\n");
 
 		//call method binaryseach
-		int index = binarySearch(arrNum);
+		int index = binarySearch(arrNum, sc);
 
 		if (index != -1)
 			System.out.println("The value is found at index " + index + "." );
@@ -71,11 +71,10 @@ public class ProgramApp
 	}//end of method bubble sort
 
 
-	//binary search method
-	public static int binarySearch(int [] list)
+	//binary search method — reuses main's Scanner (a second Scanner(System.in)
+	//hits EOF under redirected stdin because the first one buffers the stream)
+	public static int binarySearch(int [] list, Scanner sc)
 	{
-		Scanner sc = new Scanner(System.in);
-
 		System.out.print("Enter a value to search: ");
 		int search = Integer.parseInt(sc.nextLine());
 

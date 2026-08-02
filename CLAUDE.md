@@ -37,8 +37,8 @@ java-data-structures/
   scheduling-prototypes/   # Proto5–Proto8 SJF scheduler prototypes + Job (data class)
   misc/                    # ForEachExample1 (tiny for-each demo)
   sample-inputs/           # <ProgramName>.txt canned stdin, one per stdin-reading program
-  tests/                   # golden-output harness — run-tests.ps1 + expected/ (7 goldens);
-                           # `just test` must stay 7/7 PASS
+  tests/                   # golden-output harness — run-tests.ps1 + expected/ (11 goldens);
+                           # `just test` must stay 11/11 PASS
   out/                     # compiled classes (git-ignored)
   .docs/                   # numbered documentation set
   .claude/                 # skills, hooks, settings
@@ -69,11 +69,12 @@ java-data-structures/
 - Each top-level folder is its own compilation unit (same-folder files are the only compile
   dependencies); everything lands in one shared `out\`, so class names must stay unique
   across folders.
-- `ProgramApp` and `SortingAndSearchingV1/V2/V4` are **interactive only**: they build a
-  second `Scanner(System.in)` inside their search methods, and with redirected stdin the
-  first Scanner buffers the whole stream so the second hits EOF
-  (`NoSuchElementException`). Their `sample-inputs\*.txt` are intentionally absent — do not
-  add them, and do not "fix" the double Scanner (preserved coursework).
+- `ProgramApp` and `SortingAndSearchingV1/V2/V4` formerly built a second
+  `Scanner(System.in)` inside their search methods; with redirected stdin the first
+  Scanner buffers the whole stream so the second hit EOF (`NoSuchElementException`).
+  **Fixed in 2026**: the search methods now take main's Scanner as a parameter, and all
+  four have committed `sample-inputs\*.txt` + goldens. Don't reintroduce a second
+  `Scanner(System.in)` anywhere.
 - Proto5–8 input contract: per job `cpu time`, `arrival time`, then `yes`/`no` (add more).
   The first job must arrive at time 1 and arrivals must keep the CPU busy — an idle gap
   crashes with `IndexOutOfBoundsException` (`queue.get(0)` on an empty ready queue).

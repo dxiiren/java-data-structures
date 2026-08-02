@@ -1,0 +1,16 @@
+
+			Welcome to Sorting and Searching Program
+		~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ 
+
+
+Enter 10 integers number : 
+
+1)  2)  3)  4)  5)  6)  7)  8)  9)  10)  
+Values before sorting: [5, 3, 8, 1, 9, 2, 7, 4, 10, 6]
+
+Values after sorting: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+
+Enter a value to search: The value is found at index 6.
+
+		~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ 
+			Thank You and See You Again! 

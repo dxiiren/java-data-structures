@@ -42,7 +42,7 @@ public class SortingAndSearchingV1
  		System.out.println("\n");
 
  		//Searching
- 		int index = binarySearch(num);
+ 		int index = binarySearch(num, sc);
 
  		if (index != -1)
  			System.out.println("\nFound !");
@@ -97,11 +97,10 @@ public class SortingAndSearchingV1
 	}//end of method insertion sort
 
 
- 	//binary search method
- 	public static int binarySearch(int [] list)
+ 	//binary search method — reuses main's Scanner (a second Scanner(System.in)
+ 	//hits EOF under redirected stdin because the first one buffers the stream)
+ 	public static int binarySearch(int [] list, Scanner sc)
  	{
-		Scanner sc = new Scanner(System.in);
-
 		System.out.print("Enter a number that you want to search : ");
 		int search = Integer.parseInt(sc.nextLine());
 

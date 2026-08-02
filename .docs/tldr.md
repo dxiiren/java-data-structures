@@ -27,7 +27,7 @@ A good Proto8 run ends with average turn-around and waiting times.
 ## [03-development/workflow.md](03-development/workflow.md)
 
 Edit → `just run <name>` → keep `sample-inputs\<name>.txt` and the input-formats doc in
-sync with any Scanner change → `just build-all` + `just test` (7/7 golden diffs) +
+sync with any Scanner change → `just build-all` + `just test` (11/11 golden diffs) +
 `/lint-check` before a PR. Preservation
 first: no modernization, no new tooling, unique class names, Conventional Commits with
 repo-local gmail identity.
@@ -40,15 +40,15 @@ There is no deployment: no CI/CD, no server. Pushing to `main` is the distributi
 ## [05-reference/commands.md](05-reference/commands.md)
 
 The recipe table (`list`, `build <name>`, `build-all`, `run <name>`, `run-interactive
-<name>`, `test` — golden-output suite over the 7 covered programs, `clean`, `claudex`)
+<name>`, `test` — golden-output suite over all 11 runnable programs, `clean`, `claudex`)
 and why `run` redirects via `cmd /c` instead of a PowerShell pipe (BOM injection crashes
 numeric first reads).
 
 ## [05-reference/input-formats.md](05-reference/input-formats.md)
 
 Exact stdin order per program. Proto liveness rules: first job arrives at time 1, no idle
-gaps. Four programs (`ProgramApp`, V1, V2, V4) are interactive only — their second
-`Scanner` hits EOF under redirection, so they have no sample files.
+gaps. Every stdin-reading program has a committed sample file (the second-`Scanner`
+defect that kept `ProgramApp`, V1, V2, V4 interactive-only was fixed in 2026).
 
 ## [05-reference/project-layout.md](05-reference/project-layout.md)
 
@@ -58,13 +58,13 @@ expected outputs), git-ignored `out\`, the kit files, and the rules the layout e
 
 ## [06-troubleshooting/common-issues.md](06-troubleshooting/common-issues.md)
 
-Real verify-run symptoms: second-Scanner `NoSuchElementException` under redirection, the
-Proto idle-gap `IndexOutOfBoundsException`, the PowerShell-pipe BOM crash, the accepted
-`[serial]` warning baseline, exact-name `just run` errors, and the shared-`out\` class-name
-clash.
+Real verify-run symptoms: the second-Scanner `NoSuchElementException` under redirection
+(fixed in 2026 — kept as history), the Proto idle-gap `IndexOutOfBoundsException`, the
+PowerShell-pipe BOM crash, the accepted `[serial]` warning baseline, exact-name `just run`
+errors, and the shared-`out\` class-name clash.
 
 ## [07-faq/faq.md](07-faq/faq.md)
 
-Why known bugs stay unfixed (preservation), why five near-identical V-versions and four
-Protos exist (the progression is the point), where the finished scheduler lives, why
-`adts/` has no main, and why four sample files are deliberately missing.
+Which bugs stay unfixed vs which were fixed (the 2026 second-Scanner fix), why five
+near-identical V-versions and four Protos exist (the progression is the point), where the
+finished scheduler lives, and why `adts/` has no main.

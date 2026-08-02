@@ -1,0 +1,20 @@
+-------------------------------------------------------------------------
+Welcome to system searching and sorting v1 - string + {accessending
+-------------------------------------------------------------------------
+
+Enter name 1 : Enter name 2 : Enter name 3 : Enter name 4 : Enter name 5 : 
+~Bubble Sort~
+[Ali, Farah, Kim, Siti, Zara]
+
+
+Enter name v2 [1] : Enter name v2 [2] : Enter name v2 [3] : Enter name v2 [4] : Enter name v2 [5] : 
+~Insertion Sort~
+[Bella, Dina, Hana, Omar, Tariq]
+
+
+Enter a name that you want to search : 
+Found !
+
+
+
+

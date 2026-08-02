@@ -30,7 +30,7 @@ java-data-structures/
   sample-inputs/             # <ProgramName>.txt — canned stdin per stdin-reading program
   tests/                     # golden-output harness (`just test`)
     run-tests.ps1            #   builds + runs every covered program, diffs stdout + exit code
-    expected/                #   7 goldens named <ProgramName>.txt
+    expected/                #   11 goldens named <ProgramName>.txt
   out/                       # compiled .class files (git-ignored)
   .docs/                     # this documentation set
   .claude/                   # skills, hooks, settings, memory
@@ -45,10 +45,10 @@ java-data-structures/
 - A program's compile-time dependencies live in **its own folder** — `javac -sourcepath
   <folder>` resolves them; nothing references across folders.
 - All classes share the default package and one `out\`: class names are unique repo-wide.
-- A `sample-inputs\<ProgramName>.txt` exists for every program that supports redirected
-  stdin (V3, V5, Proto5–8). `ForEachExample1` reads nothing; `ProgramApp`/V1/V2/V4 are
-  interactive only (second-`Scanner` EOF — see [input-formats.md](input-formats.md)) and
-  intentionally have no sample file.
+- A `sample-inputs\<ProgramName>.txt` exists for every stdin-reading program
+  (ProgramApp, V1–V5, Proto5–8); `ForEachExample1` reads nothing. The second-`Scanner`
+  EOF defect that once kept `ProgramApp`/V1/V2/V4 sample-less was fixed in 2026 — see
+  [input-formats.md](input-formats.md).
 - Generated things (`out\`, `.mcp.json`, `.claude/settings.local.json`,
   `.claude/workspace/`) are git-ignored; everything else is committed.
 

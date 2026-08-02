@@ -47,7 +47,7 @@ public class SortingAndSearchingV4
  		System.out.println("\n");
 
  		//Searching integer
-		int index = binarySearch1(numArr);
+		int index = binarySearch1(numArr, sc);
 
 		if (index != -1)
 			System.out.println("Found !");
@@ -57,7 +57,7 @@ public class SortingAndSearchingV4
 		System.out.println("\n");
 
 		//Searching string
- 		index = binarySearch2(strArr);
+ 		index = binarySearch2(strArr, sc);
 
  		if (index != -1)
  			System.out.println("Found !");
@@ -109,11 +109,10 @@ public class SortingAndSearchingV4
 
 	}//end of method insertion sort
 
-	//binary search method for int
-	public static int binarySearch1(int [] list)
+	//binary search method for int — reuses main's Scanner (a second
+	//Scanner(System.in) hits EOF under redirected stdin)
+	public static int binarySearch1(int [] list, Scanner sc)
  	{
-		Scanner sc = new Scanner(System.in);
-
 		System.out.print("Enter a number that you want to search : ");
 		int search = Integer.parseInt(sc.nextLine());
 
@@ -135,11 +134,10 @@ public class SortingAndSearchingV4
 		return -1;
 	}//end of binary search method
 
-	//binary search method
- 	public static int binarySearch2(String [] list)
+	//binary search method for String — reuses main's Scanner (a second
+	//Scanner(System.in) hits EOF under redirected stdin)
+ 	public static int binarySearch2(String [] list, Scanner sc)
  	{
-		Scanner sc = new Scanner(System.in);
-
 		System.out.print("Enter a name that you want to search : ");
 		String search = sc.nextLine();
 

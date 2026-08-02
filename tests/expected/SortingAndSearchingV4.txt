@@ -1,0 +1,24 @@
+--------------------------------------------------------------------------------
+Welcome to system searching and sorting v4 - INT & STRING + {descending
+--------------------------------------------------------------------------------
+
+Enter number1 : Enter number2 : Enter number3 : Enter number4 : Enter number5 : 
+
+Enter name 1 : Enter name 2 : Enter name 3 : Enter name 4 : Enter name 5 : 
+~Bubble Sort~
+[5, 4, 3, 2, 1]
+
+
+
+~Insertion Sort~
+[Tariq, Omar, Hana, Dina, Bella]
+
+
+Enter a number that you want to search : Found !
+
+
+Enter a name that you want to search : Found !
+
+
+
+

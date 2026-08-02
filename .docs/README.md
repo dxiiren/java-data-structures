@@ -55,7 +55,7 @@ build/run harness.
 | Document | What it covers |
 | --- | --- |
 | [commands.md](05-reference/commands.md) | Every just recipe + the cmd /c redirect rationale |
-| [input-formats.md](05-reference/input-formats.md) | Per-program stdin contracts, Proto liveness rules, interactive-only set |
+| [input-formats.md](05-reference/input-formats.md) | Per-program stdin contracts, Proto liveness rules |
 | [project-layout.md](05-reference/project-layout.md) | Annotated tree + the rules the layout encodes |
 
 ## 06-troubleshooting

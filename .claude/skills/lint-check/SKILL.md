@@ -51,9 +51,9 @@ just run Proto8
 
 Pass = all exit 0, no stack trace, and each program prints its closing output
 (V3: the Found/Not Found verdict; Proto8: the average turn-around and waiting times).
-Do NOT smoke `ProgramApp`/`V1`/`V2`/`V4` with redirected input — they are interactive only
-(second-`Scanner` EOF, see `.docs/05-reference/input-formats.md`); a hang there is not a
-finding.
+Every stdin-reading program has a committed sample input (the second-`Scanner` EOF defect
+in `ProgramApp`/`V1`/`V2`/`V4` was fixed in 2026), so `just test` covers all 11 runnable
+programs.
 This is the repo's only executable verification — treat a stack trace as a FAIL even if
 the exit code is masked.
 

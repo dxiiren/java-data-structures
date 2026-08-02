@@ -13,15 +13,16 @@ Enter a number that you want to search : Exception in thread "main" java.util.No
         at SortingAndSearchingV1.binarySearch(SortingAndSearchingV1.java:106)
 ```
 
-**Cause** — `ProgramApp`, `SortingAndSearchingV1`, `V2`, and `V4` construct a **second**
-`new Scanner(System.in)` inside their search method(s). With redirected stdin the first
-Scanner buffers the entire (small) stream on its first read; the second Scanner then finds
-the underlying stream at EOF. At a real keyboard both Scanners read fine.
+**Cause (historical)** — `ProgramApp`, `SortingAndSearchingV1`, `V2`, and `V4` used to
+construct a **second** `new Scanner(System.in)` inside their search method(s). With
+redirected stdin the first Scanner buffers the entire (small) stream on its first read;
+the second Scanner then found the underlying stream at EOF. At a real keyboard both
+Scanners read fine, which is why the coursework never noticed.
 
-**Resolution** — these four are interactive only: run `just run-interactive <name>` (or
-`just run <name>`, which detects the missing sample file and runs directly). Their
-`sample-inputs\*.txt` are intentionally absent. Do not "fix" the double Scanner — preserved
-coursework.
+**Resolution** — **fixed in 2026**: the search methods now take main's Scanner as a
+parameter, all four have committed `sample-inputs\*.txt` + goldens, and they run under
+`just run`/`just test`. If you see this error today, a sample-input file has fewer lines
+than the program reads — never reintroduce a second `Scanner(System.in)`.
 
 ## Proto program dies with `IndexOutOfBoundsException: Index 0 out of bounds for length 0`
 

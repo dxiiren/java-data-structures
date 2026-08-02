@@ -37,11 +37,10 @@ just run-interactive SortingAndSearchingV1
 ```
 
 Type values in the exact prompt order — see
-[`../05-reference/input-formats.md`](../05-reference/input-formats.md). Note that
-`ProgramApp`, `SortingAndSearchingV1`, `V2`, and `V4` are **interactive only** (they open a
-second `Scanner`, which breaks redirected stdin) — `just run` on them waits for your typed
-input by design. For the Proto programs keep the CPU busy (no arrival gaps) or they crash;
-the input contracts doc explains why.
+[`../05-reference/input-formats.md`](../05-reference/input-formats.md). Every
+stdin-reading program also has a committed `sample-inputs\<name>.txt`, so plain
+`just run <name>` runs unattended. For the Proto programs keep the CPU busy (no arrival
+gaps) or they crash; the input contracts doc explains why.
 
 ## Verification checklist
 

@@ -11,32 +11,23 @@ crashes with `NumberFormatException`.
 
 | Program | Reads, in order | Redirectable? |
 | --- | --- | --- |
-| `ProgramApp` | 10 integers · 1 integer to search | **interactive only** |
-| `SortingAndSearchingV1` | 5 integers (bubble) · 5 integers (insertion) · 1 integer to search | **interactive only** |
-| `SortingAndSearchingV2` | 5 names (bubble) · 5 names (insertion) · 1 name to search | **interactive only** |
+| `ProgramApp` | 10 integers · 1 integer to search | yes (`sample-inputs\` committed) |
+| `SortingAndSearchingV1` | 5 integers (bubble) · 5 integers (insertion) · 1 integer to search | yes (`sample-inputs\` committed) |
+| `SortingAndSearchingV2` | 5 names (bubble) · 5 names (insertion) · 1 name to search | yes (`sample-inputs\` committed) |
 | `SortingAndSearchingV3` | 5 × (name, number) · 1 number to search | yes (`sample-inputs\` committed) |
-| `SortingAndSearchingV4` | 5 integers · 5 names · 1 integer to search · 1 name to search | **interactive only** |
+| `SortingAndSearchingV4` | 5 integers · 5 names · 1 integer to search · 1 name to search | yes (`sample-inputs\` committed) |
 | `SortingAndSearchingV5` | 5 × (name, number) · 1 number to search | yes (`sample-inputs\` committed) |
 
 The search in V1/V2/V4 runs over the **first** array entered (already sorted by then);
 V3/V5 search the students' numbers.
 
-**Why four programs are interactive only:** `ProgramApp`, V1, V2, and V4 construct a
-**second** `new Scanner(System.in)` inside their search method(s). With redirected stdin
-the first Scanner buffers the whole (small) stream on its first read, so the second Scanner
-finds the stream at EOF and dies with `NoSuchElementException: No line found` at the search
-prompt. At a real keyboard both Scanners work, so these four have no `sample-inputs\*.txt` —
-`just run <name>` runs them interactively (coursework source preserved as-is). Example
-sequences that work at the keyboard:
-
-```
-ProgramApp:  34 7 23 32 5 62 78 1 99 15   then search: 23
-V1:          5 3 8 1 9   7 2 6 4 10       then search: 8
-V2:          delta alpha charlie echo bravo   zulu yankee xray whiskey victor   search: echo
-V4:          5 9 1 7 3   delta bravo echo alpha charlie   search: 7   then: delta
-```
-
-(one value per line at the actual prompts)
+**History:** `ProgramApp`, V1, V2, and V4 used to construct a **second**
+`new Scanner(System.in)` inside their search method(s); with redirected stdin the first
+Scanner buffers the whole (small) stream on its first read, so the second Scanner found
+the stream at EOF and died with `NoSuchElementException: No line found` at the search
+prompt — which made these four interactive-only. Fixed in 2026: the search methods now
+take main's Scanner as a parameter, and all four have committed `sample-inputs\*.txt`
+(one value per line, exactly the read orders in the table above).
 
 ## scheduling-prototypes/ (Proto5–Proto8, shared contract)
 

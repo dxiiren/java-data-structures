@@ -61,10 +61,10 @@ just run Proto8    # build + run one program against sample-inputs\Proto8.txt
 ```
 
 `just run <name>` compiles one program and runs it with `sample-inputs\<name>.txt` piped as
-stdin (programs without a sample file run directly). Four programs — `ProgramApp` and
-`SortingAndSearchingV1/V2/V4` — are **interactive only** (they open a second `Scanner`,
-which breaks redirected stdin), so `just run` on them waits for typed input. These are
-run-to-completion CLIs — there is no server to stop.
+stdin (programs without a sample file run directly). Every stdin-reading program has a
+committed sample input — the second-`Scanner` defect that once made `ProgramApp` and
+`SortingAndSearchingV1/V2/V4` interactive-only was fixed in 2026 (their search methods now
+reuse main's Scanner). These are run-to-completion CLIs — there is no server to stop.
 
 ## Commands
 
@@ -77,7 +77,7 @@ Run `just` with no arguments to list every recipe. The ones you'll use daily:
 | `just build-all` | Compile every folder; fail on first error; PASS/FAIL summary |
 | `just run <name>` | Build + run one program with `sample-inputs\<name>.txt` as stdin |
 | `just run-interactive <name>` | Build + run one program with your own typed input |
-| `just test` | Golden-output suite: build + run the 7 covered programs, diff stdout vs `tests\expected\` |
+| `just test` | Golden-output suite: build + run all 11 runnable programs, diff stdout vs `tests\expected\` |
 | `just clean` | Remove compiled classes (`out\`) |
 | `just claudex` | Launch Claude Code (Sonnet, all permissions) |
 
@@ -118,19 +118,16 @@ Time : 4
 Job A is executing ...
 Job B is in hold for 3 ms
 Job C is in hold for 2 ms
-SIZE =2
 
 Time : 5
 Job B is executing ...
 Job C is in hold for 3 ms
-SIZE =1
 
 Time : 6
 Job C is executing ...
 
 Time : 7
 Job C is executing ...
-SIZE =0
 
 Time : 8
 End
@@ -147,18 +144,14 @@ Average waiting time : 2.0ms
 like `just build`), runs it with its committed `sample-inputs\<name>.txt` as stdin — or
 no stdin for `ForEachExample1` — and diffs stdout against the golden (CRLF-normalized).
 A non-zero exit code fails the test even when stdout matches. One `[PASS]`/`[FAIL]` line
-per program, summary at the end, exit 1 on any failure. Program source is untouched: the
-goldens pin behavior as-is, coursework quirks included.
+per program, summary at the end, exit 1 on any failure.
 
-**Coverage: 7 of the 11 runnable programs** — `Proto5`–`Proto8`,
-`SortingAndSearchingV3`, `SortingAndSearchingV5`, and `ForEachExample1`.
-
-Excluded: `ProgramApp` and `SortingAndSearchingV1/V2/V4` are **interactive only** — they
-build a second `Scanner(System.in)` inside their search methods, and with redirected
-stdin the first Scanner buffers the whole stream so the second hits EOF
-(`NoSuchElementException`). Their sample inputs are intentionally absent (see
-Troubleshooting below), so they have no goldens. No program is excluded for
-nondeterminism — nothing here uses timestamps or randomness.
+**Coverage: all 11 runnable programs.** The four former exclusions — `ProgramApp` and
+`SortingAndSearchingV1/V2/V4` — joined the suite after their second-`Scanner` defect was
+fixed in 2026: their search methods used to build a second `Scanner(System.in)` that hit
+EOF under redirected stdin; they now reuse main's Scanner, so each has a committed sample
+input and golden. No program is excluded for nondeterminism — nothing here uses
+timestamps or randomness.
 
 ## Troubleshooting
 
@@ -175,11 +168,11 @@ UTF-8 BOM into the first line. Use `just run <name>`, which redirects via `cmd /
 
 ### `NoSuchElementException: No line found` at a search prompt under redirected input
 
-`ProgramApp` and `SortingAndSearchingV1/V2/V4` construct a second `Scanner(System.in)`
-inside their search methods; with redirected stdin the first Scanner buffers the whole
-stream, so the second one hits EOF. These four are interactive only — run them with
-`just run-interactive <name>` (their sample files are intentionally absent; the coursework
-source is preserved as-is).
+Historical: `ProgramApp` and `SortingAndSearchingV1/V2/V4` used to construct a second
+`Scanner(System.in)` inside their search methods; with redirected stdin the first Scanner
+buffered the whole stream, so the second one hit EOF. Fixed in 2026 — the search methods
+now reuse main's Scanner, and all four run fine under `just run`/`just test`. Seeing this
+error today means a sample-input file has fewer lines than the program reads.
 
 ### `javac` prints a `[serial]` warning for `EmptyListException`
 
@@ -203,7 +196,7 @@ java-data-structures/
   scheduling-prototypes/   # Proto5–Proto8 SJF scheduler prototypes + Job (data class)
   misc/                    # ForEachExample1 (tiny for-each demo)
   sample-inputs/           # <ProgramName>.txt canned stdin, one per stdin-reading program
-  tests/                   # golden-output harness: run-tests.ps1 + expected/ (7 goldens)
+  tests/                   # golden-output harness: run-tests.ps1 + expected/ (11 goldens)
   out/                     # compiled classes (git-ignored)
   .docs/                   # numbered documentation set
   .claude/                 # skills, hooks, settings

@@ -14,7 +14,7 @@
 | `just build-all` | Compile `adts`, `sorting-searching`, `scheduling-prototypes`, `misc` | Fails on first error; `[PASS]`/`[FAIL]` per folder |
 | `just run <name>` | Build + run with `sample-inputs\<name>.txt` as stdin | Falls back to direct (interactive) run when no sample file exists |
 | `just run-interactive <name>` | Build + run with your own typed input | Prompt order in [input-formats.md](input-formats.md) |
-| `just test` | Golden-output suite via `tests\run-tests.ps1` | 7 programs (Proto5–8, V3, V5, ForEachExample1); diffs stdout vs `tests\expected\` (CRLF-normalized), non-zero exit codes fail, exit 1 on any fail. The 4 double-Scanner programs stay interactive-only |
+| `just test` | Golden-output suite via `tests\run-tests.ps1` | All 11 runnable programs (Proto5–8, ProgramApp, V1–V5, ForEachExample1); diffs stdout vs `tests\expected\` (CRLF-normalized), non-zero exit codes fail, exit 1 on any fail |
 | `just clean` | Delete `out\` | |
 | `just claudex` / `claudeo` / `claudeh` | Claude Code, all permissions (Sonnet / Opus / Haiku) | |
 

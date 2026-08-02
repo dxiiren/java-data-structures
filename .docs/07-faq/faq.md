@@ -1,15 +1,16 @@
 # FAQ
 
 > **TL;DR** — Why the repo looks the way it does: preservation-first coursework, four
-> self-contained folders, some programs interactive only, and the finished scheduler living
-> in a sibling repo.
+> self-contained folders, and the finished scheduler living in a sibling repo. The
+> second-Scanner defect was fixed in 2026; the remaining quirks stay.
 
-## Why aren't the bugs fixed (double Scanner, `==` on Objects, idle-gap crash)?
+## Why aren't the bugs fixed (`==` on Objects, idle-gap crash)?
 
 This is preserved university coursework — the value is the learning progression, not
 production quality. Behavior changes happen only when explicitly asked for, in their own
-commits. The known quirks are documented instead
-([common-issues](../06-troubleshooting/common-issues.md)).
+commits: the double-Scanner defect (and Proto8's `SIZE =N` debug print) got exactly such
+a deliberate fix in 2026, so all 11 runnable programs are now golden-tested. The remaining
+quirks are documented instead ([common-issues](../06-troubleshooting/common-issues.md)).
 
 ## Why are there five nearly identical SortingAndSearching programs?
 
@@ -48,12 +49,13 @@ Yes — see [workflow.md](../03-development/workflow.md): put it in the right to
 commit a sample input if it reads stdin (and supports redirection), update the README
 catalog and input-formats reference.
 
-## Why is `sample-inputs\` missing files for four programs?
+## Didn't `sample-inputs\` used to be missing files for four programs?
 
-`ProgramApp` and `SortingAndSearchingV1/V2/V4` cannot consume redirected stdin (second
-`Scanner` hits EOF) — a committed sample would just crash them. They run interactively;
-example keyboard sequences live in
-[input-formats.md](../05-reference/input-formats.md).
+Yes — `ProgramApp` and `SortingAndSearchingV1/V2/V4` could not consume redirected stdin
+(their second `Scanner` hit EOF), so committing samples would just have crashed them.
+Their search methods were fixed in 2026 to reuse main's Scanner, and every stdin-reading
+program now has a committed sample file
+([input-formats.md](../05-reference/input-formats.md)).
 
 ## Related docs
 

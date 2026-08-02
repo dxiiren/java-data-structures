@@ -42,7 +42,8 @@ run-interactive name: (build name)
 # The harness (tests\run-tests.ps1) rebuilds each covered program, feeds its committed
 # sample input (or no stdin for ForEachExample1), and diffs stdout against tests\expected\
 # — CRLF-normalized, one PASS/FAIL line per program, non-zero exit codes fail, exit 1 on
-# any failure. The 4 double-Scanner programs (ProgramApp, V1/V2/V4) stay interactive-only.
+# any failure. All 11 runnable programs are covered (the second-Scanner defect that kept
+# ProgramApp and V1/V2/V4 interactive-only was fixed in 2026).
 # Run the golden-output test suite over every program with a committed expected output.
 test:
     & 'tests\run-tests.ps1'; exit $LASTEXITCODE
