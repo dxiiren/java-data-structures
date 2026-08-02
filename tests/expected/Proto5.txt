@@ -1,0 +1,31 @@
+Job A) 
+Enter cpu time = Enter arrival time = 
+Want to add more? - (yes/no)
+
+Job B) 
+Enter cpu time = Enter arrival time = 
+Want to add more? - (yes/no)
+
+
+Time : 1
+Job A is executing ...
+Job B has arrived
+
+Time : 2
+Job A is executing ...
+
+Time : 3
+Job A is executing ...
+SIZE =1
+
+Time : 4
+Job B is executing ...
+
+Time : 5
+Job B is executing ...
+SIZE =0
+
+Time : 6
+End
+
+

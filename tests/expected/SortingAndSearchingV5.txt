@@ -1,0 +1,18 @@
+--------------------------------------------------------------------------------
+Welcome to system searching and sorting v5 - adt ( object ) + {descending
+--------------------------------------------------------------------------------
+
+Enter name : Enter number : Enter name : Enter number : Enter name : Enter number : Enter name : Enter number : Enter name : Enter number : 
+~Bubble Sort~
+[50,40,30,20,10]
+
+
+~Insertion Sort for string ~
+[siti,raju,mei,chong,ali]
+
+Enter a number that you want to search : 
+Found !
+
+
+
+

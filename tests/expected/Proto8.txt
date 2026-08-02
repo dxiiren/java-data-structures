@@ -1,0 +1,52 @@
+Job A) 
+Enter cpu time = Enter arrival time = 
+Want to add more? - (yes/no)
+
+Job B) 
+Enter cpu time = Enter arrival time = 
+Want to add more? - (yes/no)
+
+Job C) 
+Enter cpu time = Enter arrival time = 
+Want to add more? - (yes/no)
+
+
+Time : 1
+Job A is executing ...
+
+Time : 2
+Job A is executing ...
+Job B has arrived... 
+
+Time : 3
+Job A is executing ...
+Job B is in hold for 2 ms
+Job C has arrived... 
+
+Time : 4
+Job A is executing ...
+Job B is in hold for 3 ms
+Job C is in hold for 2 ms
+SIZE =2
+
+Time : 5
+Job B is executing ...
+Job C is in hold for 3 ms
+SIZE =1
+
+Time : 6
+Job C is executing ...
+
+Time : 7
+Job C is executing ...
+SIZE =0
+
+Time : 8
+End
+
+
+Average turn-around time : 4.333333333333333ms
+Average waiting time : 2.0ms
+
+
+
