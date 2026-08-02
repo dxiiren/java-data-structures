@@ -6,8 +6,9 @@
 the university archive into four topic folders: generic linked list / stack / queue ADTs,
 five progressive sorting-and-searching programs, four SJF CPU-scheduling prototypes, and a
 for-each demo. One matric number was stripped from a header; everything else is preserved
-as written. The finished scheduler the prototypes led to lives in the sibling repo
-`java-linked-list-sorting`, and this repo's `Job`/`Node` are its earlier variants.
+as written. The finished SJF scheduler the prototypes led to formerly lived in a standalone
+repo (since retired); these prototypes are its documented ancestors, and this repo's
+`Job`/`Node` are its earlier variants — the lineage is preserved here.
 
 ## [01-overview/architecture.md](01-overview/architecture.md)
 

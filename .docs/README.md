@@ -29,7 +29,7 @@ build/run harness.
 
 | Document | What it covers |
 | --- | --- |
-| [project-overview.md](01-overview/project-overview.md) | Course context, import history/mapping, sanitization, relationship to java-linked-list-sorting |
+| [project-overview.md](01-overview/project-overview.md) | Course context, import history/mapping, sanitization, lineage of the finished SJF scheduler |
 | [architecture.md](01-overview/architecture.md) | The three program families, the per-folder compilation model, design quirks |
 
 ## 02-setup

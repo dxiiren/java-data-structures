@@ -30,11 +30,11 @@ shortest-job-first CPU-scheduling prototypes. Preserved as written for the cours
 | `ForEachExample1` | `misc/` | Tiny for-each loop demo. |
 
 **Cross-reference:** the finished scheduler these prototypes led to — a linked-list-based
-SJF simulator (`mainApp`) — is published separately as
-[`java-linked-list-sorting`](https://github.com/dxiiren/java-linked-list-sorting).
-`Job.java` and `Node.java` here are earlier variants of that repo's same-named classes
-(no `burstTime` field; generic `Object` payload) and are kept because Proto5–8 and the
-ADTs compile against them.
+SJF simulator (`mainApp` with a Job-typed sorting `LinkedList`) — formerly lived in a
+standalone repo that has since been retired. These prototypes are its documented ancestors,
+and the lineage is preserved here: `Job.java` and `Node.java` are earlier variants of that
+scheduler's same-named classes (no `burstTime` field; generic `Object` payload), kept
+because Proto5–8 and the ADTs compile against them.
 
 ## Prerequisites
 
@@ -79,6 +79,65 @@ Run `just` with no arguments to list every recipe. The ones you'll use daily:
 | `just run-interactive <name>` | Build + run one program with your own typed input |
 | `just clean` | Remove compiled classes (`out\`) |
 | `just claudex` | Launch Claude Code (Sonnet, all permissions) |
+
+## Sample output
+
+`just run Proto8` — the final SJF scheduler prototype on its committed sample input
+(`sample-inputs\Proto8.txt`: job A cpu 4 arriving at 1, B cpu 1 at 2, C cpu 2 at 3; SJF
+picks B before C once A finishes). Prompts appear answerless because the sample file is
+piped as stdin; recipe echo trimmed:
+
+```text
+Job A)
+Enter cpu time = Enter arrival time =
+Want to add more? - (yes/no)
+
+Job B)
+Enter cpu time = Enter arrival time =
+Want to add more? - (yes/no)
+
+Job C)
+Enter cpu time = Enter arrival time =
+Want to add more? - (yes/no)
+
+
+Time : 1
+Job A is executing ...
+
+Time : 2
+Job A is executing ...
+Job B has arrived...
+
+Time : 3
+Job A is executing ...
+Job B is in hold for 2 ms
+Job C has arrived...
+
+Time : 4
+Job A is executing ...
+Job B is in hold for 3 ms
+Job C is in hold for 2 ms
+SIZE =2
+
+Time : 5
+Job B is executing ...
+Job C is in hold for 3 ms
+SIZE =1
+
+Time : 6
+Job C is executing ...
+
+Time : 7
+Job C is executing ...
+SIZE =0
+
+Time : 8
+End
+
+
+Average turn-around time : 4.333333333333333ms
+Average waiting time : 2.0ms
+```
 
 ## Troubleshooting
 

@@ -40,17 +40,18 @@ The archive was flat; the repo groups files by topic:
 Sanitization: the student matric number was removed from the `ProgramApp.java` header
 (names of the author, group, and lecturer were kept). No other file carried personal data.
 
-## Relationship to java-linked-list-sorting
+## Relationship to the finished SJF scheduler
 
 The finished product of the scheduling thread — a linked-list-based SJF simulator
-(`mainApp` + Job-typed `LinkedList`) — is published separately as
-[`java-linked-list-sorting`](https://github.com/dxiiren/java-linked-list-sorting). This repo
-keeps the distinct precursors and ADTs:
+(`mainApp` + Job-typed `LinkedList`) — formerly lived in a standalone repo that has since
+been retired. The Proto5–8 prototypes here are its documented ancestors; the lineage is
+preserved in this repo, which keeps the distinct precursors and ADTs:
 
-- `scheduling-prototypes/Job.java` is an **earlier variant** of that repo's `Job` (no
+- `scheduling-prototypes/Job.java` is an **earlier variant** of that scheduler's `Job` (no
   `burstTime`); kept because Proto5–8 compile against it.
 - `adts/Node.java` and `adts/LinkedList.java` are the **generic `Object`-payload** versions
-  (that repo's are Job-typed with sorting); the generic list also backs `Stack` and `Queue`.
+  (that scheduler's are Job-typed with sorting); the generic list also backs `Stack` and
+  `Queue`.
 - The Proto5–8 prototypes are `ArrayList`-based and structurally different from `mainApp`.
 
 ## Key facts

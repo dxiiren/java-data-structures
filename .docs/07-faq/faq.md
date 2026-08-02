@@ -24,11 +24,11 @@ output cleanup). The chain documents how the final scheduler was reached.
 
 ## Where is the finished scheduler?
 
-Published separately as
-[`java-linked-list-sorting`](https://github.com/dxiiren/java-linked-list-sorting) —
-a linked-list-based `mainApp` with a Job-typed sorting `LinkedList`. This repo's `Job.java`
-and `Node.java` are its earlier variants, kept because Proto5–8 and the generic ADTs
-compile against them.
+The finished variant — a linked-list-based `mainApp` with a Job-typed sorting `LinkedList` —
+formerly lived in a standalone repo that has since been retired. These prototypes are its
+documented ancestors, and the lineage is preserved here: this repo's `Job.java` and
+`Node.java` are its earlier variants, kept because Proto5–8 and the generic ADTs compile
+against them.
 
 ## Why does `adts/` have no runnable program?
 

@@ -9,8 +9,9 @@ A collection of 17 plain-Java console programs from CSC248 (Data Structures, UiT
 coursework: hand-rolled generic linked list / stack / queue ADTs, five progressive
 sorting-and-searching programs (bubble sort, insertion sort, binary search over ints,
 strings, and objects, ascending and descending), and four progressively refined
-shortest-job-first CPU-scheduling prototypes (Proto5–Proto8) that led to the final
-scheduler published separately as `java-linked-list-sorting`. Preserved as-is.
+shortest-job-first CPU-scheduling prototypes (Proto5–Proto8) that led to a finished
+linked-list-based SJF scheduler which formerly lived in a standalone repo (since retired);
+these prototypes are its documented ancestors — the lineage is preserved here. As-is.
 
 - **Repo:** GitHub — `github.com/dxiiren/java-data-structures`
 - **Runs locally only** — no CI/CD, no deployment target, no server. `just run <name>`
@@ -80,7 +81,8 @@ java-data-structures/
   deliberately no driver class.
 - The apps write no files at runtime — the only generated artifact is the git-ignored `out\`.
 - Job.java and Node.java here are earlier generic/variant versions of the same-named classes
-  in `java-linked-list-sorting` — kept because Proto5–8 and the ADTs compile against them.
+  in the finished SJF scheduler (formerly a standalone repo, since retired) — kept because
+  Proto5–8 and the ADTs compile against them.
 
 ## Project Skills
 
